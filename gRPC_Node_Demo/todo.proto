@@ -1,0 +1,30 @@
+syntax = "proto3" ; //when we write this code then it assume this file is going to use the proto buffer version 3 because lots of things are not available in proto2
+
+//defining api contracts
+service TodoService{
+    rpc CreateTodo(Todo) returns (Todo) {};
+    rpc GetTodo(TodoRequest) returns (Todo) {};
+    rpc ListTodos(Empty) returns (TodoList) {};
+}
+
+message Empty{} // when this is empty then it is going to return all the todos
+ 
+message Todo{
+    string id = 1;   // these numeric values are used to identify the fields in binary encoded data
+    string title = 2;
+    optional string content = 3;
+}
+
+message TodoList{
+    repeated Todo todos = 1; // repeted is used for array because lots of todos will be coming
+}
+
+message TodoRequest{
+    string id = 1;
+}
+// this is depecting /todo/:id endpoint in rest
+
+
+//Rest = > urls or services are service oriented e.g /todos or /todos/:id
+
+//gRPC => urls or services are action oriented e.g Create, Get, List
